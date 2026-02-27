@@ -1,25 +1,23 @@
-# train_mask_detector_final.py
 
-import os
-import numpy as np
+# ====================================TRAINED MODEL=================================================
+
+# ===================== IMPORTS =====================
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from tensorflow.keras.layers import AveragePooling2D, Dense, Dropout, Flatten, Input
 from tensorflow.keras.models import Model
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
 
-# ---------------- PARAMETERS ----------------
+# ===================== CONFIG =====================
 IMG_SIZE = 224
 BATCH_SIZE = 32
-EPOCHS_TOP = 10        # train top layers first
-EPOCHS_FINE = 5        # fine-tune last layers
-DATASET_DIR = "dataset"
-LEARNING_RATE_TOP = 1e-4
-LEARNING_RATE_FINE = 1e-5
-# -------------------------------------------
+EPOCHS = 20
+INIT_LR = 1e-4
+DATASET_DIR = "dataset"   # dataset/with_mask , dataset/without_mask
+MODEL_NAME = "final_mask_model.h5"
 
-# Data augmentation + validation split
+# ===================== DATA GENERATOR =====================
 datagen = ImageDataGenerator(
     rescale=1./255,
     rotation_range=20,
@@ -36,8 +34,89 @@ train_gen = datagen.flow_from_directory(
     DATASET_DIR,
     target_size=(IMG_SIZE, IMG_SIZE),
     batch_size=BATCH_SIZE,
+    class_mode="categorical",
+    subset="training",
+    classes=["with_mask", "without_mask"]
+)
+
+val_gen = datagen.flow_from_directory(
+    DATASET_DIR,
+    target_size=(IMG_SIZE, IMG_SIZE),
+    batch_size=BATCH_SIZE,
+    class_mode="categorical",
+    subset="validation",
+    classes=["with_mask", "without_mask"]
+)
+
+print("Class indices:", train_gen.class_indices)
+# {'with_mask': 0, 'without_mask': 1}
+
+# ===================== BASE MODEL =====================
+baseModel = MobileNetV2(
+    weights="imagenet",
+    include_top=False,
+    input_tensor=Input(shape=(IMG_SIZE, IMG_SIZE, 3))
+)
+
+# Freeze base layers
+for layer in baseModel.layers:
+    layer.trainable = False
+
+# ===================== HEAD MODEL =====================
+headModel = baseModel.output
+headModel = AveragePooling2D(pool_size=(7, 7))(headModel)
+headModel = Flatten(name="flatten")(headModel)
+headModel = Dense(128, activation="relu")(headModel)
+headModel = Dropout(0.5)(headModel)
+headModel = Dense(2, activation="softmax")(headModel)
+
+model = Model(inputs=baseModel.input, outputs=headModel)
+
+# ===================== COMPILE =====================
+model.compile(
+    optimizer=Adam(learning_rate=INIT_LR),
+    loss="categorical_crossentropy",
+    metrics=["accuracy"]
+)
+
+# ===================== TRAIN =====================
+model.fit(
+    train_gen,
+    validation_data=val_gen,
+    epochs=EPOCHS
+)
+
+# ===================== SAVE =====================
+model.save(MODEL_NAME)
+print(f"Model saved as {MODEL_NAME}")
+
+# =======================WEBCAM PREDICTION========================
+
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+# ================= CONFIG =================
+IMG_SIZE = 64
+BATCH_SIZE = 32
+EPOCHS = 15
+DATASET_DIR = "dataset"   # dataset/with_mask , dataset/without_mask
+MODEL_NAME = "mask_detector_model.h5"
+
+# ================= DATA GENERATORS =================
+datagen = ImageDataGenerator(
+    rescale=1./255,
+    validation_split=0.2
+)
+
+train_gen = datagen.flow_from_directory(
+    DATASET_DIR,
+    target_size=(IMG_SIZE, IMG_SIZE),
+    batch_size=BATCH_SIZE,
     class_mode="binary",
-    subset="training"
+    subset="training",
+    classes=["with_mask", "without_mask"]
 )
 
 val_gen = datagen.flow_from_directory(
@@ -45,43 +124,44 @@ val_gen = datagen.flow_from_directory(
     target_size=(IMG_SIZE, IMG_SIZE),
     batch_size=BATCH_SIZE,
     class_mode="binary",
-    subset="validation"
+    subset="validation",
+    classes=["with_mask", "without_mask"]
 )
 
-# Load MobileNetV2 base
-base_model = MobileNetV2(weights="imagenet", include_top=False, input_shape=(IMG_SIZE, IMG_SIZE, 3))
+print("Class indices:", train_gen.class_indices)
+# {'with_mask': 0, 'without_mask': 1}
 
-# Freeze all base layers initially
-for layer in base_model.layers:
-    layer.trainable = False
+# ================= MODEL =================
+model = Sequential([
+    Conv2D(32, (3,3), activation="relu", input_shape=(IMG_SIZE, IMG_SIZE, 3)),
+    MaxPooling2D(2,2),
 
-# Add custom layers
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-x = Dense(128, activation='relu')(x)
-x = Dropout(0.5)(x)
-output = Dense(1, activation='sigmoid')(x)
-model = Model(inputs=base_model.input, outputs=output)
+    Conv2D(64, (3,3), activation="relu"),
+    MaxPooling2D(2,2),
 
-# Compile top layers
-model.compile(optimizer=Adam(learning_rate=LEARNING_RATE_TOP),
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
+    Conv2D(128, (3,3), activation="relu"),
+    MaxPooling2D(2,2),
 
-# Train top layers
-model.fit(train_gen, validation_data=val_gen, epochs=EPOCHS_TOP)
+    Flatten(),
+    Dense(128, activation="relu"),
+    Dropout(0.5),
+    Dense(1, activation="sigmoid")  # binary output
+])
 
-# ----- Fine-tune last 50 layers -----
-for layer in base_model.layers[-50:]:
-    layer.trainable = True
+# ================= COMPILE =================
+model.compile(
+    optimizer="adam",
+    loss="binary_crossentropy",
+    metrics=["accuracy"]
+)
 
-model.compile(optimizer=Adam(learning_rate=LEARNING_RATE_FINE),
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
+# ================= TRAIN =================
+model.fit(
+    train_gen,
+    validation_data=val_gen,
+    epochs=EPOCHS
+)
 
-# Fine-tune
-model.fit(train_gen, validation_data=val_gen, epochs=EPOCHS_FINE)
-
-# Save model
-model.save("mask_detector_final.h5")
-print("Model saved as mask_detector_final.h5")
+# ================= SAVE =================
+model.save(MODEL_NAME)
+print(f"Model saved as {MODEL_NAME}")
