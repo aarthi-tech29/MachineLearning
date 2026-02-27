@@ -23,10 +23,10 @@ while True:
     prediction = model.predict(img)
 
     if prediction[0][0] > 0.5:
-        label = "Mask 😷"
+        label = "Mask"
         color = (0, 255, 0)
     else:
-        label = "No Mask 🚨"
+        label = "No Mask"
         color = (0, 0, 255)
 
     cv2.putText(frame, label, (20, 40),

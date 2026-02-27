@@ -1,4 +1,83 @@
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
+# -------------------------------
+# Step 1: Prepare dataset for ML
+# -------------------------------
+data = {
+    "length_correct": [1, 1, 0, 1, 1, 0, 1, 1],
+    "all_digits":     [1, 1, 1, 0, 1, 0, 1, 1],
+    "match":          [1, 0, 0, 0, 1, 0, 0, 1],
+    "valid":          [1, 0, 0, 0, 1, 0, 0, 1]
+}
+
+# length_correct → 1 if PIN has exactly 4 digits, 0 if not
+# all_digits → 1 if PIN contains only numbers, 0 if letters or symbols are included
+# match → 1 if PIN entered matches the actual ATM PIN, 0 if incorrect
+# valid → 1 = valid PIN, 0 = invalid PIN
+
+# | Row | length_correct | all_digits | match | valid | Meaning                                                                                           |
+# | --- | -------------- | ---------- | ----- | ----- | ------------------------------------------------------------------------------------------------- |
+# | 1   | 1              | 1          | 1     | 1     | Correct PIN: 4 digits, all numbers, matches actual PIN → valid                                  |
+# | 2   | 1              | 1          | 0     | 0     | Wrong PIN: correct length & digits but does **not match** → invalid                             |
+# | 3   | 0              | 1          | 0     | 0     | Wrong PIN: wrong length (less/more than 4 digits), digits correct, does **not match** → invalid |
+# | 4   | 1              | 0          | 0     | 0     | Wrong PIN: 4 characters but contains non-digits, does **not match** → invalid                   |
+# | 5   | 1              | 1          | 1     | 1     | Correct PIN: 4 digits, all numbers, matches actual PIN → valid                                  |
+# | 6   | 0              | 0          | 0     | 0     | Wrong PIN: wrong length **and** contains non-digits → invalid                                   |
+# | 7   | 1              | 1          | 0     | 0     | Wrong PIN: 4 digits, all numbers but does **not match** → invalid                               |
+# | 8   | 1              | 1          | 1     | 1     | Correct PIN: 4 digits, all numbers, matches actual PIN → valid                                  |
+
+
+df = pd.DataFrame(data)
+X = df[["length_correct", "all_digits", "match"]]
+y = df["valid"]
+
+# -------------------------------
+# Step 2: Train-test split
+# -------------------------------
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+# -------------------------------
+# Step 3: Train ML model
+# -------------------------------
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# Test model accuracy
+accuracy = model.score(X_test, y_test)
+print(f"ML model test accuracy: {accuracy*100:.2f}%")
+
+# -------------------------------
+# Step 4: ATM PIN input process
+# -------------------------------
+correct_pin = "1234"
+max_attempts = 3
+attempt = 0
+
+while attempt < max_attempts:
+    user_pin = input("Enter your 4-digit ATM PIN: ")
+
+    # Feature extraction
+    length_correct = int(len(user_pin) == 4)
+    all_digits = int(user_pin.isdigit())
+    match = int(user_pin == correct_pin)
+
+    features = pd.DataFrame([[length_correct, all_digits, match]],
+                            columns=["length_correct","all_digits","match"])
+    prediction = model.predict(features)
+
+    if prediction[0] == 1:
+        print("PIN Verified Successfully!")
+        break
+    else:
+        print("Invalid PIN. Try again!")
+        attempt += 1
+        if attempt < max_attempts:
+            print(f"Attempts left: {max_attempts - attempt}")
+        else:
+            print("Maximum attempts reached. Access blocked!")
+# =======================================================================================
 # import re
 # import random
 # import time
@@ -87,83 +166,3 @@
 #     atm_validation()
 
 # =========================================================================
-
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-
-# -------------------------------
-# Step 1: Prepare dataset for ML
-# -------------------------------
-data = {
-    "length_correct": [1, 1, 0, 1, 1, 0, 1, 1],
-    "all_digits":     [1, 1, 1, 0, 1, 0, 1, 1],
-    "match":          [1, 0, 0, 0, 1, 0, 0, 1],
-    "valid":          [1, 0, 0, 0, 1, 0, 0, 1]
-}
-
-# length_correct → 1 if PIN has exactly 4 digits, 0 if not
-# all_digits → 1 if PIN contains only numbers, 0 if letters or symbols are included
-# match → 1 if PIN entered matches the actual ATM PIN, 0 if incorrect
-# valid → 1 = valid PIN, 0 = invalid PIN
-
-# | Row | length_correct | all_digits | match | valid | Meaning                                                                                           |
-# | --- | -------------- | ---------- | ----- | ----- | ------------------------------------------------------------------------------------------------- |
-# | 1   | 1              | 1          | 1     | 1     | Correct PIN: 4 digits, all numbers, matches actual PIN → valid                                  |
-# | 2   | 1              | 1          | 0     | 0     | Wrong PIN: correct length & digits but does **not match** → invalid                             |
-# | 3   | 0              | 1          | 0     | 0     | Wrong PIN: wrong length (less/more than 4 digits), digits correct, does **not match** → invalid |
-# | 4   | 1              | 0          | 0     | 0     | Wrong PIN: 4 characters but contains non-digits, does **not match** → invalid                   |
-# | 5   | 1              | 1          | 1     | 1     | Correct PIN: 4 digits, all numbers, matches actual PIN → valid                                  |
-# | 6   | 0              | 0          | 0     | 0     | Wrong PIN: wrong length **and** contains non-digits → invalid                                   |
-# | 7   | 1              | 1          | 0     | 0     | Wrong PIN: 4 digits, all numbers but does **not match** → invalid                               |
-# | 8   | 1              | 1          | 1     | 1     | Correct PIN: 4 digits, all numbers, matches actual PIN → valid                                  |
-
-
-df = pd.DataFrame(data)
-X = df[["length_correct", "all_digits", "match"]]
-y = df["valid"]
-
-# -------------------------------
-# Step 2: Train-test split
-# -------------------------------
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-
-# -------------------------------
-# Step 3: Train ML model
-# -------------------------------
-model = RandomForestClassifier(random_state=42)
-model.fit(X_train, y_train)
-
-# Test model accuracy
-accuracy = model.score(X_test, y_test)
-print(f"ML model test accuracy: {accuracy*100:.2f}%")
-
-# -------------------------------
-# Step 4: ATM PIN input process
-# -------------------------------
-correct_pin = "1234"
-max_attempts = 3
-attempt = 0
-
-while attempt < max_attempts:
-    user_pin = input("Enter your 4-digit ATM PIN: ")
-
-    # Feature extraction
-    length_correct = int(len(user_pin) == 4)
-    all_digits = int(user_pin.isdigit())
-    match = int(user_pin == correct_pin)
-
-    features = pd.DataFrame([[length_correct, all_digits, match]],
-                            columns=["length_correct","all_digits","match"])
-    prediction = model.predict(features)
-
-    if prediction[0] == 1:
-        print("PIN Verified Successfully!")
-        break
-    else:
-        print("Invalid PIN. Try again!")
-        attempt += 1
-        if attempt < max_attempts:
-            print(f"Attempts left: {max_attempts - attempt}")
-        else:
-            print("⚠ Maximum attempts reached. Access blocked!")

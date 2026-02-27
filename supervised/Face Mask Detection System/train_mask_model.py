@@ -84,4 +84,4 @@ model.fit(train_gen, validation_data=val_gen, epochs=EPOCHS_FINE)
 
 # Save model
 model.save("mask_detector_final.h5")
-print("✅ Model saved as mask_detector_final.h5")
+print("Model saved as mask_detector_final.h5")

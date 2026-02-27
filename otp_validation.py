@@ -1,70 +1,3 @@
-
-# import random
-# import string
-# import numpy as np
-# from sklearn.ensemble import RandomForestClassifier
-# import time
-
-# # -------------------------------
-# # Step 1: Generate OTP
-# # -------------------------------
-# def generate_otp(length=6):
-#     digits = string.digits
-#     otp = "".join(random.choice(digits) for _ in range(length))
-#     return otp
-
-# # -------------------------------
-# # Step 2: Feature Extraction for OTP Validation
-# # -------------------------------
-# def extract_features(otp_input, otp_generated, time_taken):
-#     """
-#     Converts OTP input into ML features
-#     - Length matches?
-#     - Only digits?
-#     - Number of wrong attempts?
-#     - Time taken to enter OTP
-#     """
-#     return [
-#         int(len(otp_input) == len(otp_generated)),   # length correct
-#         int(otp_input.isdigit()),                    # all digits?
-#         int(otp_input == otp_generated),            # exact match
-#         time_taken                                  # time taken to enter
-#     ]
-
-# # -------------------------------
-# # Step 3: Prepare Training Data for ML Model
-# # -------------------------------
-# # Features: [length_correct, all_digits, match, time_taken]
-# X = [
-#     [1,1,1,5],   # valid OTP, entered quickly
-#     [1,1,0,6],   # wrong OTP, but correct format
-#     [0,1,0,10],  # wrong length
-#     [1,0,0,7],   # has non-digit
-# ]
-# y = [1,0,0,0]  # 1 = valid OTP, 0 = invalid
-
-# model = RandomForestClassifier(random_state=42)
-# model.fit(X, y)
-
-# # -------------------------------
-# # Step 4: OTP Process with ML Validation
-# # -------------------------------
-# otp = generate_otp()
-# print(f"Your OTP is: {otp} (for demo purposes)")
-
-# start_time = time.time()
-# user_input = input("Enter OTP: ")
-# time_taken = int(time.time() - start_time)
-
-# features = np.array([extract_features(user_input, otp, time_taken)])
-# prediction = model.predict(features)
-
-# if prediction[0] == 1:
-#     print("OTP Verified Successfully!")
-# else:
-#     print("Invalid OTP. Try again!")
-
-# ===================================================================
 import random
 import string
 import time
@@ -153,7 +86,7 @@ print(f"ML model test accuracy (for monitoring patterns): {accuracy*100:.2f}%")
 # Step 6: OTP process
 # -------------------------------
 otp = generate_otp()
-print(f"Your OTP is: {otp} (for demo purposes)")
+print(f"Your OTP is: {otp}")
 
 max_attempts = 3
 attempt = 0
@@ -164,7 +97,7 @@ while attempt < max_attempts:
     time_taken = int(time.time() - start_time)
     
     # -------------------------------
-    # Step 6a: Direct OTP verification (100% reliable)
+    # Step 7: Direct OTP verification
     # -------------------------------
     if user_input == otp:
         print(f" OTP Verified Successfully in {time_taken} seconds!")
@@ -174,7 +107,7 @@ while attempt < max_attempts:
         print(f" Invalid OTP. Attempts left: {max_attempts - attempt}")
     
     # -------------------------------
-    # Step 6b: ML Monitoring (optional)
+    # Step 8: ML Monitoring 
     # -------------------------------
     features = pd.DataFrame(
         [extract_features(user_input, otp, time_taken)],
@@ -182,7 +115,76 @@ while attempt < max_attempts:
     )
     ml_prediction = ml_model.predict(features)
     if ml_prediction[0] == 1 and user_input != otp:
-        print("⚠ Warning: suspicious OTP pattern detected!")
+        print("Warning: suspicious OTP pattern detected!")
 
 if attempt == max_attempts:
     print("You have exceeded the maximum OTP attempts. Try again later!")
+
+# ====================================================================================
+
+# import random
+# import string
+# import numpy as np
+# from sklearn.ensemble import RandomForestClassifier
+# import time
+
+# # -------------------------------
+# # Step 1: Generate OTP
+# # -------------------------------
+# def generate_otp(length=6):
+#     digits = string.digits
+#     otp = "".join(random.choice(digits) for _ in range(length))
+#     return otp
+
+# # -------------------------------
+# # Step 2: Feature Extraction for OTP Validation
+# # -------------------------------
+# def extract_features(otp_input, otp_generated, time_taken):
+#     """
+#     Converts OTP input into ML features
+#     - Length matches?
+#     - Only digits?
+#     - Number of wrong attempts?
+#     - Time taken to enter OTP
+#     """
+#     return [
+#         int(len(otp_input) == len(otp_generated)),   # length correct
+#         int(otp_input.isdigit()),                    # all digits?
+#         int(otp_input == otp_generated),            # exact match
+#         time_taken                                  # time taken to enter
+#     ]
+
+# # -------------------------------
+# # Step 3: Prepare Training Data for ML Model
+# # -------------------------------
+# # Features: [length_correct, all_digits, match, time_taken]
+# X = [
+#     [1,1,1,5],   # valid OTP, entered quickly
+#     [1,1,0,6],   # wrong OTP, but correct format
+#     [0,1,0,10],  # wrong length
+#     [1,0,0,7],   # has non-digit
+# ]
+# y = [1,0,0,0]  # 1 = valid OTP, 0 = invalid
+
+# model = RandomForestClassifier(random_state=42)
+# model.fit(X, y)
+
+# # -------------------------------
+# # Step 4: OTP Process with ML Validation
+# # -------------------------------
+# otp = generate_otp()
+# print(f"Your OTP is: {otp} (for demo purposes)")
+
+# start_time = time.time()
+# user_input = input("Enter OTP: ")
+# time_taken = int(time.time() - start_time)
+
+# features = np.array([extract_features(user_input, otp, time_taken)])
+# prediction = model.predict(features)
+
+# if prediction[0] == 1:
+#     print("OTP Verified Successfully!")
+# else:
+#     print("Invalid OTP. Try again!")
+
+# ===================================================================

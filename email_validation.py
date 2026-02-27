@@ -1,55 +1,4 @@
 
-
-# import re
-# import numpy as np
-# from sklearn.ensemble import RandomForestClassifier
-
-# # Step 1: Sample dataset of emails (1 = valid, 0 = invalid)
-# emails = [
-#     "john.doe@gmail.com",      # valid
-#     "alice123@company.org",    # valid
-#     "invalid-email@",          # invalid
-#     "bob@domain",              # invalid
-#     "user!@gmail.com"          # invalid
-# ]
-# labels = [1, 1, 0, 0, 0]
-
-# # Step 2: Feature extraction function
-# def extract_features(email):
-#     return [
-#         len(email),                                 # email length
-#         int(bool(re.search(r'\d', email))),         # contains number
-#         int(bool(re.search(r'[!#$%^&*(),?":{}|<>]', email))),  # special char
-#         int('@' in email),                          # has @
-#         int('.' in email),                          # has dot
-#         len(email.split('@')[-1].split('.')),      # number of domain parts
-#     ]
-
-# # Convert emails to feature array
-# X = np.array([extract_features(email) for email in emails])
-# y = np.array(labels)
-
-# # Step 3: Train ML model
-# model = RandomForestClassifier(random_state=42)
-# model.fit(X, y)
-
-# # Step 4: Validate new emails
-# test_emails = [
-#     "example.user@gmail.com",
-#     "noatsign.com",
-#     "hello_world@domain.org"
-# ]
-
-# for email in test_emails:
-#     features = np.array([extract_features(email)])
-#     prediction = model.predict(features)
-#     if prediction[0] == 1:
-#         print(f" '{email}' is a Valid Email")
-#     else:
-#         print(f" '{email}' is an Invalid Email")
-
-# ===================================================================
-
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -132,4 +81,56 @@ while attempt < max_attempts:
         if attempt < max_attempts:
             print(f"Attempts left: {max_attempts - attempt}")
         else:
-            print("⚠ Maximum attempts reached. Try again later.")
+            print("Maximum attempts reached. Try again later.")
+
+# ===============================================================================
+
+# import re
+# import numpy as np
+# from sklearn.ensemble import RandomForestClassifier
+
+# # Step 1: Sample dataset of emails (1 = valid, 0 = invalid)
+# emails = [
+#     "john.doe@gmail.com",      # valid
+#     "alice123@company.org",    # valid
+#     "invalid-email@",          # invalid
+#     "bob@domain",              # invalid
+#     "user!@gmail.com"          # invalid
+# ]
+# labels = [1, 1, 0, 0, 0]
+
+# # Step 2: Feature extraction function
+# def extract_features(email):
+#     return [
+#         len(email),                                 # email length
+#         int(bool(re.search(r'\d', email))),         # contains number
+#         int(bool(re.search(r'[!#$%^&*(),?":{}|<>]', email))),  # special char
+#         int('@' in email),                          # has @
+#         int('.' in email),                          # has dot
+#         len(email.split('@')[-1].split('.')),      # number of domain parts
+#     ]
+
+# # Convert emails to feature array
+# X = np.array([extract_features(email) for email in emails])
+# y = np.array(labels)
+
+# # Step 3: Train ML model
+# model = RandomForestClassifier(random_state=42)
+# model.fit(X, y)
+
+# # Step 4: Validate new emails
+# test_emails = [
+#     "example.user@gmail.com",
+#     "noatsign.com",
+#     "hello_world@domain.org"
+# ]
+
+# for email in test_emails:
+#     features = np.array([extract_features(email)])
+#     prediction = model.predict(features)
+#     if prediction[0] == 1:
+#         print(f" '{email}' is a Valid Email")
+#     else:
+#         print(f" '{email}' is an Invalid Email")
+
+# ===================================================================
