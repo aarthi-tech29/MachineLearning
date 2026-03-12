@@ -24,17 +24,9 @@ HF_HEADERS = {
 # TRUSTED NEWS SOURCES
 # ===============================
 trusted_sources = [
-    "the-washington-post",
-    "washington post",
-    "cnn",
-    "bbc",
-    "bbc-news",
-    "reuters",
-    "npr",
-    "espn",
-    "associated press",
-    "detroit free press",
-    "el-balad.com"
+    "the-washington-post","washington post","cnn","bbc","bbc-news",
+    "reuters","npr","espn","associated press","detroit free press",
+    "el-balad.com","cbs sports","space.com","the seattle times","yahoo"
 ]
 
 # ===============================
@@ -212,7 +204,8 @@ HF_HEADERS = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
 # Trusted news sources
 trusted_sources = [
     "the-washington-post","washington post","cnn","bbc","bbc-news",
-    "reuters","npr","espn","associated press","detroit free press","el-balad.com"
+    "reuters","npr","espn","associated press","detroit free press",
+    "el-balad.com","cbs sports","space.com","the seattle times","yahoo"
 ]
 
 # ===============================
@@ -378,17 +371,9 @@ HEADERS = {
 # Trusted Sources
 # ===============================
 trusted_sources = [
-    "the-washington-post",
-    "washington post",
-    "cnn",
-    "bbc",
-    "bbc-news",
-    "reuters",
-    "npr",
-    "espn",
-    "associated press",
-    "detroit free press",
-    "el-balad.com"
+    "the-washington-post","washington post","cnn","bbc","bbc-news",
+    "reuters","npr","espn","associated press","detroit free press",
+    "el-balad.com","cbs sports","space.com","the seattle times","yahoo"
 ]
 
 # ===============================
