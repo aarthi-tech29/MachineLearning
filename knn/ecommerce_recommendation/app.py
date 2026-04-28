@@ -58,7 +58,7 @@ print("\nRecommended Products:")
 print(result[["product_name", "category", "price", "score"]])
 
 
-# Input: wireless electronics,
+
 # Cosine Similarity - Measure similarity, Similarity score, Compare with all items, Manual sorting needed
 # KNN - Find nearest items(using cosine distance internally), Distance + neighbors, Returns top K directly, Automatic selection 
 # Using cosine similarity, we first compute similarity with all products and then select the nearest ones.
