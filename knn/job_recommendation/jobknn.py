@@ -67,3 +67,28 @@ for index, row in jobs.iterrows():
     print("Text:", row["job_text"])
     print("Score:", round(row["match_score"], 2), "%")
     print("---------------------------")
+# =========================================================================================
+# import pandas as pd
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.metrics.pairwise import cosine_similarity
+ 
+# jobs = pd.read_csv("jobs.csv")
+ 
+# jobs["text"] = jobs["job_title"] + " " + jobs["skills"] + " " + jobs["location"]
+ 
+# vectorizer = TfidfVectorizer()
+# job_vectors = vectorizer.fit_transform(jobs["text"])
+ 
+# user_input = input("Enter your skills and location: ")
+ 
+# user_vector = vectorizer.transform([user_input])
+ 
+# scores = cosine_similarity(user_vector, job_vectors)[0]
+ 
+# jobs["score"] = scores
+ 
+# result = jobs.sort_values("score", ascending=False).head(3)
+ 
+# print("\nRecommended Jobs:")
+# print(result[["job_title", "location", "score"]])
+
