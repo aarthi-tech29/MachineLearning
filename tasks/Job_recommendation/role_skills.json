@@ -1,0 +1,35 @@
+{
+    "java developer": [
+        "django",
+        "spring",
+        "java",
+        "python",
+        "sql"
+    ],
+    "data scientist": [
+        "nlp",
+        "pandas",
+        "deep learning",
+        "generative ai",
+        "machine learning",
+        "llm",
+        "python"
+    ],
+    "data engineer": [
+        "hadoop",
+        "spark",
+        "aws",
+        "python",
+        "sql"
+    ],
+    "data analyst": [
+        "excel",
+        "power bi",
+        "sql"
+    ],
+    "ml engineer": [
+        "machine learning",
+        "python",
+        "tensorflow"
+    ]
+}

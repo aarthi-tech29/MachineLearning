@@ -1,0 +1,11 @@
+Question,Answer
+What is DBMS?,DBMS is a system used to manage databases
+Why is DBMS used?,DBMS is used to store and manage data efficiently
+What is database?,A database is an organized collection of data
+What is database table?,A table stores data in rows and columns
+What is database row?,A row represents a single record
+What is database column?,A column represents a field
+What is database query?,A query retrieves data from a database
+What is primary key in database?,A primary key uniquely identifies records
+What is foreign key in database?,A foreign key links tables
+What is normalization in database?,Normalization reduces redundancy
