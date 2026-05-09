@@ -1,0 +1,11 @@
+Historical_Consumption,Temperature,Festival_Season,Hour,Department_Consumption,Electricity_Demand
+450,30,Yes,8,200,500
+500,35,Yes,14,240,580
+420,28,No,10,180,460
+550,38,Yes,18,260,650
+390,26,No,6,170,430
+610,40,Yes,20,300,720
+470,32,No,12,210,520
+530,36,Yes,16,250,610
+410,27,No,9,175,450
+590,39,Yes,19,280,690

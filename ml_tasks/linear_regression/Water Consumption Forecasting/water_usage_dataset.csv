@@ -1,0 +1,13 @@
+Month,Occupancy_Count,Temperature,Season,Previous_Usage,Water_Usage_Liters
+1,20,28,Summer,4800,5000
+2,18,30,Summer,5000,5200
+3,15,26,Rainy,4500,4700
+4,22,35,Summer,5300,5600
+5,25,36,Summer,5600,5900
+6,19,24,Winter,4300,4500
+7,17,23,Winter,4200,4400
+8,21,29,Rainy,4900,5100
+9,23,33,Summer,5500,5800
+10,16,22,Winter,4100,4300
+11,20,27,Rainy,4700,4900
+12,24,34,Summer,5700,6000

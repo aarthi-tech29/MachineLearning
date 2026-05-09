@@ -1,0 +1,11 @@
+Pickup_Location,Drop_Location,Distance_km,Traffic_Level,Weather,Peak_Hour,Trip_Time_Minutes,Base_Fare,Total_Fare
+Anna Nagar,T Nagar,8,Medium,Clear,Yes,25,50,180
+Velachery,Airport,12,High,Rainy,Yes,40,50,260
+Tambaram,Guindy,15,High,Fog,No,35,50,240
+Porur,Adyar,10,Low,Clear,No,20,50,150
+Kodambakkam,OMR,18,High,Rainy,Yes,50,50,320
+Avadi,Central,22,Medium,Clear,No,45,50,280
+Guindy,T Nagar,6,Low,Clear,Yes,18,50,140
+OMR,Velachery,14,Medium,Fog,No,30,50,220
+Adyar,Airport,16,High,Rainy,Yes,48,50,310
+Tambaram,Anna Nagar,25,Medium,Clear,No,55,50,340
