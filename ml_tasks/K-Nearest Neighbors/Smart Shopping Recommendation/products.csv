@@ -1,0 +1,11 @@
+ProductID,ProductName,Category,Price
+P101,Smartphone,Electronics,20000
+P102,Laptop,Electronics,55000
+P103,Headphones,Electronics,2000
+P104,Shoes,Fashion,3000
+P105,T-Shirt,Fashion,800
+P106,Watch,Fashion,1500
+P107,Tablet,Electronics,25000
+P108,Backpack,Accessories,1200
+P109,Sunglasses,Accessories,1000
+P110,Keyboard,Electronics,2500

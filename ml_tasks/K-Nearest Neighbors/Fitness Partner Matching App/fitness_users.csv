@@ -1,0 +1,9 @@
+UserID,Height_cm,Weight_kg,Age,WorkoutPreference,Goal,WorkoutDays,HoursPerDay
+U1,170,70,22,Strength,Muscle Gain,5,1.5
+U2,165,60,25,Cardio,Weight Loss,4,1
+U3,180,85,28,Strength,Muscle Gain,6,2
+U4,155,50,24,Yoga,Flexibility,3,1
+U5,175,78,30,Cardio,Weight Loss,5,1.5
+U6,168,65,26,Strength,Muscle Gain,4,2
+U7,160,55,23,Yoga,Flexibility,3,1.2
+U8,182,90,29,Strength,Muscle Gain,6,2.5

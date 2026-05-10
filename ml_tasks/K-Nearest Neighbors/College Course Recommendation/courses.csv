@@ -1,0 +1,9 @@
+CourseID,CourseName,Category
+C1,Machine Learning,AI
+C2,Deep Learning,AI
+C3,Web Development,Web
+C4,React & Node.js,Web
+C5,Data Science,DataScience
+C6,Python Programming,Programming
+C7,Cloud Computing,IT
+C8,UI/UX Design,Design
