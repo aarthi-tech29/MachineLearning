@@ -105,11 +105,11 @@ for i in range(len(y_pred)):
 # ACCURACY METRICS
 # =========================================================
 
-accuracy = accuracy_score(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred) # Correct predictions percentage (how many transactions were correctly classified as SUCCESS or FAILURE)
 
-precision = precision_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred) # How many predicted FAILED payments were actually failed (accuracy of failure detection)
 
-recall = recall_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred) # # How many actual FAILED transactions were correctly detected by the model (missed failure rate reduction)
 
 f1 = f1_score(y_test, y_pred)
 
@@ -436,6 +436,21 @@ print("P(y=1) = 1 / (1 + e^-(b0 + b1x1 + b2x2 + ... + bnxn))")
 # =========================================================
 # END OF PROJECT
 # ========================================================
+# P(y=1) is the probability that an online transaction will FAIL.
+# b0 is the intercept (base failure tendency of the model).
+# b1, b2, ..., bn are coefficients for each feature (internet speed, amount, device, etc.).
+# x1, x2, ..., xn are the input transaction features.
+# Example:
+# P(failure) = 1 / (1 + e^-(b0 + b1*InternetSpeed + b2*TransactionAmount
+#                         + b3*DeviceType + b4*BrowserType + b5*ResponseTime))
+# This formula calculates the probability that a payment transaction will fail
+# based on network and system conditions.
+# Higher risk features (slow internet, high transaction amount,
+# slow gateway response time, suspicious device/browser patterns)
+# increase the probability of PAYMENT FAILURE.
+
+# Normal conditions (fast internet, low/medium amount, quick response time,
+# trusted device/browser) decrease the probability of FAILURE.
 
 # The model learns:
 # patterns of failed transactions

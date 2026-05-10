@@ -473,6 +473,20 @@ print("P(y=1) = 1 / (1 + e^-(b0 + b1x1 + b2x2 + ... + bnxn))")
 # ================================================================
 # END OF PROJECT
 # ================================================================
+# P(y=1) is the probability that a patient is in EMERGENCY condition.
+# b0 is the intercept (base risk level of the model).
+# b1, b2, ..., bn are coefficients for each medical feature (heart rate, BP, oxygen, etc.).
+# x1, x2, ..., xn are the input patient health features.
+# Example:
+# P(emergency) = 1 / (1 + e^-(b0 + b1*HeartRate + b2*SystolicBP + b3*DiastolicBP
+#                          + b4*OxygenLevel + b5*Temperature))
+# This formula calculates the probability that a patient is in a critical emergency state
+# based on vital health indicators.
+# Higher values of risky medical features (high heart rate, low oxygen level,
+# high blood pressure, high temperature) increase the probability of EMERGENCY.
+
+# Normal health values (normal BP, normal oxygen, normal temperature, normal pulse)
+# decrease the probability of EMERGENCY.
 
 # The model learns:
 # emergency patterns

@@ -491,6 +491,19 @@ print("P(y=1) = 1 / (1 + e^-(b0 + b1x1 + b2x2 + ... + bnxn))")
 # =========================================================
 # END OF PROJECT
 # ========================================================
+# # P(y=1) is the probability that a job posting is FAKE.
+# b0 is the intercept (base bias of the model).
+# b1, b2, ..., bn are coefficients for each feature (word patterns, salary, company info, etc.).
+# x1, x2, ..., xn are input features extracted from job posting data.
+# Example:
+# P(fake job) = 1 / (1 + e^-(b0 + b1*SalaryPattern + b2*CompanyVerification
+#                         + b3*UrgencyWords + b4*ExperienceMismatch + ...))
+# This formula calculates the probability that a job advertisement is fake
+# based on different job-related signals.
+# Higher values of suspicious features (like unrealistic salary, urgent hiring,
+# missing company details, spam-like text) increase the probability of FAKE job.
+# Higher values of trusted features (like verified company, normal salary range,
+# proper job description) decrease the probability of FAKE job.
 
 # The model learns:
 # Which words are common in fake job descriptions
@@ -501,10 +514,7 @@ print("P(y=1) = 1 / (1 + e^-(b0 + b1x1 + b2x2 + ... + bnxn))")
 # How to create visualizations to understand data patterns
 # How to build a user input system for real-time predictions
 # How to generate reports and dashboards for stakeholders
-# How to deploy the model in a real-world scenario for fake job detection
-# How to continuously improve the model with new data and feedback
-# How to handle imbalanced datasets if fake jobs are much less than real jobs
-# How to use regularization techniques to prevent overfitting in logistic regression
+
 
 # Input Examples:
 # Enter Job Description:

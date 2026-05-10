@@ -106,11 +106,11 @@ for i in range(len(y_pred)):
 # ACCURACY METRICS
 # =========================================================
 
-accuracy = accuracy_score(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred) # Correct predictions percentage (how many students were correctly classified as ELIGIBLE or NOT ELIGIBLE)
 
-precision = precision_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred) # How many predicted ELIGIBLE students were actually eligible (accuracy of eligibility detection)
 
-recall = recall_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred) # How many actual ELIGIBLE students were correctly detected by the model (missed eligibility rate reduction)
 
 f1 = f1_score(y_test, y_pred)
 
@@ -449,6 +449,19 @@ print("P(y=1) = 1 / (1 + e^-(b0 + b1x1 + b2x2 + ... + bnxn))")
 # ===========================================================
 # END OF PROJECT
 # ===========================================================
+# # P(y=1) is the probability that a student is ELIGIBLE for admission.
+# b0 is the intercept (base admission tendency of the model).
+# b1, b2, ..., bn are coefficients for each feature (academic marks, entrance score, etc.).
+# x1, x2, ..., xn are the input student features.
+# Example:
+# P(eligible) = 1 / (1 + e^-(b0 + b1*AcademicMarks + b2*EntranceScore
+#                         + b3*ReservationCategory + b4*InterviewMarks))
+# This formula calculates the probability that a student is eligible for admission
+# based on academic and evaluation performance.
+# Higher values of strong academic features (high marks, high entrance score,
+# good interview performance) increase the probability of ELIGIBILITY.
+# Lower academic performance or weak interview scores decrease the probability
+# of ELIGIBILITY.
 
 # The model learns:
 # - Patterns of eligible students
