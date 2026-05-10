@@ -1,6 +1,6 @@
 Metric,Value
-Total Transactions,16.0
-Failed Transactions,8.0
-Successful Transactions,8.0
-Average Amount,5325.0
+Total Transactions,12.0
+Failed Transactions,6.0
+Successful Transactions,6.0
+Average Amount,10916.666666666666
 Failure Percentage,50.0

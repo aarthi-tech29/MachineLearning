@@ -1,6 +1,6 @@
 # =========================================================
 # ONLINE PAYMENT FAILURE PREDICTION SYSTEM
-# LOGISTIC REGRESSION PROJECT
+# LOGISTIC REGRESSION PROJECT (FIXED VERSION)
 # =========================================================
 
 # =========================================================
@@ -12,8 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
-
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import LabelEncoder
 
 from sklearn.metrics import (
     accuracy_score,
@@ -31,7 +31,6 @@ from fpdf import FPDF
 df = pd.read_csv("online_payment_dataset.csv")
 
 print("\n========== DATASET ==========\n")
-
 print(df.head())
 
 # =========================================================
@@ -39,8 +38,17 @@ print(df.head())
 # =========================================================
 
 print("\n========== MISSING VALUES ==========\n")
-
 print(df.isnull().sum())
+
+# =========================================================
+# LABEL ENCODING (FIX FOR DEVICE + BROWSER)
+# =========================================================
+
+device_encoder = LabelEncoder()
+browser_encoder = LabelEncoder()
+
+df["Device_Type"] = device_encoder.fit_transform(df["Device_Type"])
+df["Browser_Type"] = browser_encoder.fit_transform(df["Browser_Type"])
 
 # =========================================================
 # INPUT FEATURES
@@ -72,10 +80,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # =========================================================
-# CREATE LOGISTIC REGRESSION MODEL
+# CREATE MODEL
 # =========================================================
 
-model = LogisticRegression()
+model = LogisticRegression(max_iter=1000)
 
 # =========================================================
 # TRAIN MODEL
@@ -94,33 +102,24 @@ y_pred = model.predict(X_test)
 print("\n========== TEST PREDICTIONS ==========\n")
 
 for i in range(len(y_pred)):
-
     print(f"Actual      : {y_test.iloc[i]}")
-
     print(f"Predicted   : {y_pred[i]}")
-
     print("--------------------------------------")
 
 # =========================================================
 # ACCURACY METRICS
 # =========================================================
 
-accuracy = accuracy_score(y_test, y_pred) # Correct predictions percentage (how many transactions were correctly classified as SUCCESS or FAILURE)
-
-precision = precision_score(y_test, y_pred) # How many predicted FAILED payments were actually failed (accuracy of failure detection)
-
-recall = recall_score(y_test, y_pred) # # How many actual FAILED transactions were correctly detected by the model (missed failure rate reduction)
-
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
 
 print("\n========== ACCURACY METRICS ==========\n")
 
 print(f"Accuracy Score   : {accuracy:.2f}")
-
 print(f"Precision Score  : {precision:.2f}")
-
 print(f"Recall Score     : {recall:.2f}")
-
 print(f"F1 Score         : {f1:.2f}")
 
 # =========================================================
@@ -129,37 +128,24 @@ print(f"F1 Score         : {f1:.2f}")
 
 print("\n========== PAYMENT FAILURE CHECK ==========\n")
 
-internet_speed = float(
-    input("Enter Internet Speed (Mbps): ")
-)
-
-amount = float(
-    input("Enter Transaction Amount: ")
-)
+internet_speed = float(input("Enter Internet Speed (Mbps): "))
+amount = float(input("Enter Transaction Amount: "))
 
 print("\nDevice Type")
-print("0 = Mobile")
-print("1 = Laptop")
-
-device = int(
-    input("Enter Device Type: ")
-)
+print("0 = Laptop")
+print("1 = Mobile")
+device = int(input("Enter Device Type: "))
 
 print("\nBrowser Type")
 print("0 = Chrome")
-print("1 = Firefox")
-print("2 = Edge")
+print("1 = Edge")
+print("2 = Firefox")
+browser = int(input("Enter Browser Type: "))
 
-browser = int(
-    input("Enter Browser Type: ")
-)
-
-response_time = float(
-    input("Enter Gateway Response Time: ")
-)
+response_time = float(input("Enter Gateway Response Time: "))
 
 # =========================================================
-# CREATE DATAFRAME FOR INPUT
+# CREATE INPUT DATA
 # =========================================================
 
 new_data = pd.DataFrame([[
@@ -177,36 +163,24 @@ new_data = pd.DataFrame([[
 ])
 
 # =========================================================
-# PREDICT TRANSACTION STATUS
+# PREDICTION
 # =========================================================
 
 prediction = model.predict(new_data)
-
 probability = model.predict_proba(new_data)
 
 failure_probability = probability[0][1] * 100
-
 success_probability = probability[0][0] * 100
 
 print("\n========== PREDICTION RESULT ==========\n")
 
 if prediction[0] == 1:
-
     print("Prediction : PAYMENT FAILED")
-
 else:
-
     print("Prediction : PAYMENT SUCCESSFUL")
 
-print(
-    f"Failure Probability : "
-    f"{failure_probability:.2f}%"
-)
-
-print(
-    f"Success Probability : "
-    f"{success_probability:.2f}%"
-)
+print(f"Failure Probability : {failure_probability:.2f}%")
+print(f"Success Probability : {success_probability:.2f}%")
 
 # =========================================================
 # RISK ANALYTICS DASHBOARD
@@ -215,113 +189,60 @@ print(
 print("\n========== RISK ANALYTICS DASHBOARD ==========\n")
 
 total_transactions = len(df)
-
-failed_transactions = df[
-    "Transaction_Status"
-].sum()
-
-successful_transactions = (
-    total_transactions - failed_transactions
-)
-
-failure_percentage = (
-    failed_transactions / total_transactions
-) * 100
-
-avg_amount = df[
-    "Transaction_Amount"
-].mean()
+failed_transactions = df["Transaction_Status"].sum()
+successful_transactions = total_transactions - failed_transactions
+failure_percentage = (failed_transactions / total_transactions) * 100
+avg_amount = df["Transaction_Amount"].mean()
 
 print(f"Total Transactions      : {total_transactions}")
-
 print(f"Failed Transactions     : {failed_transactions}")
-
 print(f"Successful Transactions : {successful_transactions}")
-
 print(f"Average Amount          : {avg_amount:.2f}")
-
-print(
-    f"Failure Percentage      : "
-    f"{failure_percentage:.2f}%"
-)
+print(f"Failure Percentage      : {failure_percentage:.2f}%")
 
 # =========================================================
-# GRAPH 1
-# INTERNET SPEED VS FAILURE
+# GRAPH 1 - INTERNET SPEED VS FAILURE
 # =========================================================
 
 plt.figure(figsize=(8,5))
-
-plt.scatter(
-    df["Internet_Speed"],
-    df["Transaction_Status"]
-)
-
+plt.scatter(df["Internet_Speed"], df["Transaction_Status"])
 plt.xlabel("Internet Speed")
-
 plt.ylabel("Transaction Status")
-
-plt.title("Internet Speed vs Payment Failure")
-
+plt.title("Internet Speed vs Failure")
 plt.grid(True)
-
 plt.show()
 
 # =========================================================
-# GRAPH 2
-# TRANSACTION AMOUNT VS FAILURE
+# GRAPH 2 - AMOUNT VS FAILURE
 # =========================================================
 
 plt.figure(figsize=(8,5))
-
-plt.scatter(
-    df["Transaction_Amount"],
-    df["Transaction_Status"]
-)
-
+plt.scatter(df["Transaction_Amount"], df["Transaction_Status"])
 plt.xlabel("Transaction Amount")
-
 plt.ylabel("Transaction Status")
-
-plt.title("Amount vs Payment Failure")
-
+plt.title("Amount vs Failure")
 plt.grid(True)
-
 plt.show()
 
 # =========================================================
-# GRAPH 3
-# DEVICE ANALYSIS
+# GRAPH 3 - DEVICE ANALYSIS
 # =========================================================
 
-device_avg = df.groupby(
-    "Device_Type"
-)["Transaction_Status"].mean()
-
-print("\n========== DEVICE ANALYSIS ==========\n")
-
-print(device_avg)
+device_avg = df.groupby("Device_Type")["Transaction_Status"].mean()
 
 plt.figure(figsize=(6,5))
-
 device_avg.plot(kind="bar")
-
-plt.xlabel("Device Type")
-
+plt.xlabel("Device Type (Encoded)")
 plt.ylabel("Failure Rate")
-
-plt.title("Device vs Payment Failure")
-
+plt.title("Device vs Failure")
 plt.grid(True)
-
 plt.show()
 
 # =========================================================
-# SAVE DASHBOARD REPORT
+# SAVE DASHBOARD
 # =========================================================
 
 dashboard = pd.DataFrame({
-
     "Metric": [
         "Total Transactions",
         "Failed Transactions",
@@ -329,7 +250,6 @@ dashboard = pd.DataFrame({
         "Average Amount",
         "Failure Percentage"
     ],
-
     "Value": [
         total_transactions,
         failed_transactions,
@@ -339,92 +259,42 @@ dashboard = pd.DataFrame({
     ]
 })
 
-dashboard.to_csv(
-    "payment_dashboard_report.csv",
-    index=False
-)
+dashboard.to_csv("payment_dashboard_report.csv", index=False)
 
-print("\nDashboard report saved successfully")
+print("\nDashboard saved successfully")
 
 # =========================================================
-# EXPORT PDF REPORT
+# PDF REPORT
 # =========================================================
 
 pdf = FPDF()
-
 pdf.add_page()
-
 pdf.set_font("Arial", size=16)
 
-pdf.cell(
-    200,
-    10,
-    txt="Online Payment Failure Report",
-    ln=True,
-    align='C'
-)
-
+pdf.cell(200, 10, txt="Payment Failure Prediction Report", ln=True, align='C')
 pdf.ln(10)
 
 pdf.set_font("Arial", size=12)
 
-pdf.cell(
-    200,
-    10,
-    txt=f"Accuracy Score: {accuracy:.2f}",
-    ln=True
-)
-
-pdf.cell(
-    200,
-    10,
-    txt=f"Precision Score: {precision:.2f}",
-    ln=True
-)
-
-pdf.cell(
-    200,
-    10,
-    txt=f"Recall Score: {recall:.2f}",
-    ln=True
-)
-
-pdf.cell(
-    200,
-    10,
-    txt=f"F1 Score: {f1:.2f}",
-    ln=True
-)
+pdf.cell(200, 10, txt=f"Accuracy: {accuracy:.2f}", ln=True)
+pdf.cell(200, 10, txt=f"Precision: {precision:.2f}", ln=True)
+pdf.cell(200, 10, txt=f"Recall: {recall:.2f}", ln=True)
+pdf.cell(200, 10, txt=f"F1 Score: {f1:.2f}", ln=True)
 
 pdf.ln(10)
 
-if prediction[0] == 1:
+result = "FAILED" if prediction[0] == 1 else "SUCCESS"
 
-    result = "PAYMENT FAILED"
-
-else:
-
-    result = "PAYMENT SUCCESSFUL"
-
-pdf.cell(
-    200,
-    10,
-    txt=f"Prediction: {result}",
-    ln=True
-)
-
-pdf.cell(
-    200,
-    10,
-    txt=f"Failure Probability: {failure_probability:.2f}%",
-    ln=True
-)
+pdf.cell(200, 10, txt=f"Prediction: {result}", ln=True)
+pdf.cell(200, 10, txt=f"Failure Probability: {failure_probability:.2f}%", ln=True)
 
 pdf.output("Payment_Failure_Report.pdf")
 
 print("\nPDF Report Generated Successfully")
 
-print("Saved File: Payment_Failure_Report.pdf")
+# =========================================================
+# END OF PROJECT
+# =========================================================
 
 # =========================================================
 # LOGISTIC REGRESSION FORMULA
@@ -460,8 +330,37 @@ print("P(y=1) = 1 / (1 + e^-(b0 + b1x1 + b2x2 + ... + bnxn))")
 # A high failure probability means the model is very confident the transaction will fail, while a high success probability means it is confident the transaction will succeed.
 
 # Input Example:
+# Failure
 # Enter Internet Speed (Mbps): 5
 # Enter Transaction Amount: 10000
 # Enter Device Type: 1
 # Enter Browser Type: 2
 # Enter Gateway Response Time: 10
+
+# Success
+# Enter Internet Speed (Mbps): 50
+# Enter Transaction Amount: 2000
+# Device Type
+# 0 = Laptop
+# 1 = Mobile
+# Enter Device Type: 1
+# Browser Type
+# 0 = Chrome
+# 1 = Edge
+# 2 = Firefox
+# Enter Browser Type: 0
+# Enter Gateway Response Time: 1
+
+# Example 2 (Balanced SAFE transaction)
+# Internet Speed: 25
+# Transaction Amount: 5000
+# Device Type: 0
+# Browser Type: 2
+# Gateway Response Time: 2
+
+# Example 3 (Medium safe transaction)
+# Internet Speed: 30
+# Transaction Amount: 8000
+# Device Type: 1
+# Browser Type: 0
+# Gateway Response Time: 3
