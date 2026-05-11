@@ -72,3 +72,12 @@ def predict_disease(patient_id):
 # =========================
 pid = input("Enter Patient ID: ")
 predict_disease(pid)
+
+# ========================
+# The model learns:
+# - Patients with similar symptoms and image features tend to have the same skin condition.
+# - The KNN model identifies the most similar past cases to predict the likely disease for a new patient based on their symptoms and image features.
+# - This system can assist doctors in making informed decisions by providing insights from similar cases, but it should not replace professional medical diagnosis.
+
+# Input example:
+# PatientID: P1
