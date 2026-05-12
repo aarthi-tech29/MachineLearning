@@ -1,0 +1,16 @@
+Customer_ID,Credit_Score,Monthly_Salary,EMI_Payment_History,Monthly_Transactions,Loan_Default_Risk
+C101,780,85000,Good,120,Low
+C102,520,25000,Poor,40,High
+C103,650,45000,Average,75,Medium
+C104,500,22000,Poor,35,High
+C105,790,90000,Good,130,Low
+C106,630,40000,Average,70,Medium
+C107,510,20000,Poor,30,High
+C108,800,95000,Good,140,Low
+C109,670,50000,Average,80,Medium
+C110,480,18000,Poor,25,High
+C111,770,82000,Good,115,Low
+C112,640,42000,Average,72,Medium
+C113,495,21000,Poor,28,High
+C114,785,87000,Good,125,Low
+C115,660,47000,Average,78,Medium

@@ -1,0 +1,16 @@
+City,AQI,Vehicle_Density,Weather_Condition,Temperature,Pollution_Level
+Chennai,85,220,Clear,32,Moderate
+Delhi,320,850,Smog,40,High
+Mumbai,140,400,Cloudy,34,Moderate
+Bangalore,70,180,Rainy,28,Low
+Kolkata,290,780,Smog,38,High
+Hyderabad,110,350,Cloudy,33,Moderate
+Pune,65,170,Rainy,27,Low
+Ahmedabad,310,820,Smog,41,High
+Jaipur,120,360,Clear,36,Moderate
+Lucknow,280,760,Smog,39,High
+Coimbatore,60,150,Rainy,26,Low
+Surat,130,390,Cloudy,35,Moderate
+Patna,300,810,Smog,40,High
+Visakhapatnam,75,200,Clear,31,Low
+Nagpur,150,420,Cloudy,37,Moderate

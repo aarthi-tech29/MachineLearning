@@ -1,0 +1,16 @@
+Crop_Image_ID,Soil_Moisture,Soil_pH,Temperature,Humidity,Disease_Status
+IMG101,45,6.5,28,60,Healthy
+IMG102,20,5.2,38,85,Disease
+IMG103,40,6.8,30,65,Healthy
+IMG104,18,5,40,90,Disease
+IMG105,42,6.7,29,63,Healthy
+IMG106,22,5.4,37,82,Disease
+IMG107,44,6.6,27,61,Healthy
+IMG108,19,5.1,39,88,Disease
+IMG109,41,6.9,31,66,Healthy
+IMG110,21,5.3,36,80,Disease
+IMG111,43,6.5,28,62,Healthy
+IMG112,17,4.9,41,91,Disease
+IMG113,46,6.8,29,64,Healthy
+IMG114,23,5.5,35,79,Disease
+IMG115,45,6.7,30,67,Healthy

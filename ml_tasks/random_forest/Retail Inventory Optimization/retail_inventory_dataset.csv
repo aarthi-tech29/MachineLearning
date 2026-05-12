@@ -1,0 +1,16 @@
+Product_ID,Previous_Sales,Festival_Season,Season,Current_Stock,Inventory_Need
+P101,120,No,Summer,80,Low
+P102,500,Yes,Festival,40,High
+P103,280,No,Winter,60,Medium
+P104,550,Yes,Festival,35,High
+P105,140,No,Summer,75,Low
+P106,320,No,Rainy,55,Medium
+P107,600,Yes,Festival,30,High
+P108,150,No,Winter,85,Low
+P109,300,No,Rainy,58,Medium
+P110,620,Yes,Festival,25,High
+P111,130,No,Summer,82,Low
+P112,340,No,Winter,50,Medium
+P113,580,Yes,Festival,28,High
+P114,160,No,Rainy,78,Low
+P115,310,No,Winter,57,Medium

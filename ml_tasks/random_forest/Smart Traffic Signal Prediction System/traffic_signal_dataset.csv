@@ -1,0 +1,16 @@
+Road_ID,Vehicle_Count,Weather_Condition,Peak_Hour,Average_Speed,Congestion_Level
+R101,120,Clear,No,55,Low
+R102,450,Rainy,Yes,18,High
+R103,250,Cloudy,Yes,35,Medium
+R104,500,Rainy,Yes,15,High
+R105,140,Clear,No,52,Low
+R106,300,Cloudy,Yes,32,Medium
+R107,520,Rainy,Yes,12,High
+R108,160,Clear,No,50,Low
+R109,280,Cloudy,Yes,30,Medium
+R110,550,Rainy,Yes,10,High
+R111,130,Clear,No,54,Low
+R112,320,Cloudy,Yes,28,Medium
+R113,480,Rainy,Yes,16,High
+R114,150,Clear,No,53,Low
+R115,290,Cloudy,Yes,31,Medium
