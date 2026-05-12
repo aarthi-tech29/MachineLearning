@@ -1,0 +1,16 @@
+Day_ID,Season,Festival_Day,Customer_Traffic,Average_Temperature,Food_Demand
+D101,Summer,Yes,450,38,High
+D102,Winter,No,180,22,Low
+D103,Rainy,No,250,28,Medium
+D104,Summer,Yes,500,40,High
+D105,Winter,No,200,20,Low
+D106,Rainy,Yes,350,26,High
+D107,Summer,No,320,36,Medium
+D108,Winter,No,150,18,Low
+D109,Rainy,Yes,400,27,High
+D110,Summer,No,300,35,Medium
+D111,Winter,Yes,370,21,High
+D112,Rainy,No,240,25,Medium
+D113,Summer,Yes,520,39,High
+D114,Winter,No,170,19,Low
+D115,Rainy,No,260,24,Medium

@@ -80,4 +80,37 @@ plt.ylabel("WCSS")
 plt.title("Elbow Method")
 plt.show()
  
+# ======================================================
+# STEP 5: HIERARCHICAL CLUSTERING
+# ======================================================
  
+hierarchical = AgglomerativeClustering(n_clusters=3)
+df["Hierarchical_Cluster"] = hierarchical.fit_predict(X_scaled)
+ 
+print("\nHierarchical Cluster Output:")
+print(df[["Age", "Annual_Income", "Hierarchical_Cluster"]].head())
+ 
+ 
+# Dendrogram
+linked = linkage(X_scaled[:30], method="ward")
+ 
+plt.figure(figsize=(10, 5))
+dendrogram(linked)
+plt.title("Hierarchical Clustering Dendrogram")
+plt.xlabel("Customers")
+plt.ylabel("Distance")
+plt.show()
+ 
+ 
+# ======================================================
+# STEP 6: DBSCAN CLUSTERING
+# ======================================================
+ 
+dbscan = DBSCAN(eps=1.5, min_samples=5)
+df["DBSCAN_Cluster"] = dbscan.fit_predict(X_scaled)
+ 
+print("\nDBSCAN Cluster Output:")
+print(df[["Age", "Annual_Income", "DBSCAN_Cluster"]].head())
+ 
+print("\nDBSCAN Cluster Counts:")
+print(df["DBSCAN_Cluster"].value_counts())

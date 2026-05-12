@@ -1,0 +1,16 @@
+User_ID,Failed_Login_Attempts,Suspicious_IP,Network_Traffic_MB,Access_Time_Hours,Threat_Level
+U101,1,No,120,2,Low
+U102,8,Yes,950,1,High
+U103,3,No,300,4,Medium
+U104,10,Yes,1200,0,High
+U105,2,No,180,3,Low
+U106,6,Yes,700,1,High
+U107,4,No,350,5,Medium
+U108,9,Yes,1100,0,High
+U109,1,No,150,6,Low
+U110,5,Yes,650,2,Medium
+U111,2,No,200,4,Low
+U112,7,Yes,850,1,High
+U113,3,No,320,5,Medium
+U114,11,Yes,1300,0,High
+U115,1,No,170,3,Low

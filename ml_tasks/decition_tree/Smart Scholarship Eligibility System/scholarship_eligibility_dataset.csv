@@ -1,0 +1,16 @@
+Student_ID,Family_Income,Attendance_Percentage,Academic_Marks,Community_Category,Scholarship_Status
+S101,25000,95,92,SC,Eligible
+S102,80000,78,70,OC,Not Eligible
+S103,30000,88,85,BC,Eligible
+S104,120000,65,60,OC,Not Eligible
+S105,40000,90,89,MBC,Eligible
+S106,95000,72,68,BC,Not Eligible
+S107,20000,97,94,SC,Eligible
+S108,110000,75,72,OC,Not Eligible
+S109,35000,85,80,MBC,Eligible
+S110,150000,60,55,OC,Not Eligible
+S111,28000,92,90,SC,Eligible
+S112,70000,80,74,BC,Not Eligible
+S113,45000,89,87,MBC,Eligible
+S114,130000,68,62,OC,Not Eligible
+S115,22000,96,93,SC,Eligible

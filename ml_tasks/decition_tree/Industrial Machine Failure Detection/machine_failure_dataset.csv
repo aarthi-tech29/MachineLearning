@@ -1,0 +1,16 @@
+Machine_ID,Temperature,Vibration,Pressure,Humidity,Machine_Status
+M101,45,2.1,30,40,Normal
+M102,78,6.5,50,65,Failure
+M103,50,2.8,35,45,Normal
+M104,85,7.2,55,70,Failure
+M105,48,3,33,42,Normal
+M106,90,8,60,75,Failure
+M107,52,3.1,36,44,Normal
+M108,88,7.5,58,72,Failure
+M109,47,2.4,32,41,Normal
+M110,92,8.5,62,78,Failure
+M111,49,2.7,34,43,Normal
+M112,80,6.8,52,67,Failure
+M113,51,3.2,35,46,Normal
+M114,87,7.9,57,71,Failure
+M115,46,2.3,31,40,Normal

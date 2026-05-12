@@ -1,0 +1,16 @@
+Claim_Amount,Accident_History,Policy_Duration_Years,Fraud_History,Claim_Status
+5000,0,5,0,Approved
+15000,1,2,0,Approved
+30000,3,1,1,Rejected
+12000,1,4,0,Approved
+45000,4,1,1,Rejected
+8000,0,6,0,Approved
+22000,2,3,0,Approved
+50000,5,1,1,Rejected
+18000,1,5,0,Approved
+35000,3,2,1,Rejected
+9000,0,7,0,Approved
+27000,2,2,1,Rejected
+14000,1,4,0,Approved
+40000,4,1,1,Rejected
+10000,0,5,0,Approved
