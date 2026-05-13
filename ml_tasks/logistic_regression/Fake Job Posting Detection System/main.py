@@ -339,6 +339,21 @@ plt.title("Company Validation vs Fraud")
 plt.grid(True)
 
 plt.show()
+# =========================================================
+# GRAPH 4
+# Prediction Probability Distribution
+# =========================================================
+plt.figure(figsize=(6,5))
+
+plt.barh(["Real Job", "Fake Job"], 
+         [real_probability, fake_probability])
+
+plt.xlabel("Probability (%)")
+plt.title("Job Prediction Probability Distribution")
+
+plt.grid(True)
+
+plt.show()
 
 # =========================================================
 # ADMIN DASHBOARD

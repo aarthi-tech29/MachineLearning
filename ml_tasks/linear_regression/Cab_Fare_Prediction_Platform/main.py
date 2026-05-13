@@ -120,6 +120,21 @@ plt.xlabel("Traffic Level")
 plt.ylabel("Fare")
 plt.show()
 
+# Actual vs Predicted
+plt.figure()
+plt.scatter(y_test, y_pred, alpha=0.7)
+
+plt.xlabel("Actual Fare")
+plt.ylabel("Predicted Fare")
+plt.title("Actual vs Predicted Fare (Model Accuracy)")
+
+# Perfect prediction line (y = x)
+plt.plot([y_test.min(), y_test.max()],
+         [y_test.min(), y_test.max()],
+         'r--', linewidth=2)
+
+plt.show()
+
 # =========================================================
 # USER INPUT
 # =========================================================
