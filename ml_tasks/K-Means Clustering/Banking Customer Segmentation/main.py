@@ -140,7 +140,7 @@ print(
 # CUSTOMER SEGMENTATION CHART
 # =========================================================
 
-plt.figure(figsize=(10,6))
+plt.figure(figsize=(8,6))
 
 scatter = plt.scatter(
     df["Monthly_Savings"],
